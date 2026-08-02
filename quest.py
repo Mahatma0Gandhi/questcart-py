@@ -24,7 +24,7 @@ def remote_setup():
     """Visit this URL once to start the linking process on the server"""
     try:
         # We use process.env['PRAVA_STATE_DIR'] which is set in render.yaml
-        cmd = "prava setup --name QuestRemote --platform custom"
+        cmd = "npx --yes prava setup --name QuestRemote --platform custom"
         result = subprocess.run(cmd, capture_output=True, text=True, shell=True)
         # This will return a URL for you to click and approve
         return f"<h3>Prava Remote Setup</h3><pre>{result.stdout}</pre><p>Copy the URL above to approve.</p>"
@@ -35,7 +35,7 @@ def remote_setup():
 def remote_status():
     """Check if the server is successfully linked to Prava"""
     try:
-        result = subprocess.run("prava status", capture_output=True, text=True, shell=True)
+        result = subprocess.run("npx --yes prava status", capture_output=True, text=True, shell=True)
         return f"<h3>Prava Server Status</h3><pre>{result.stdout}</pre>"
     except Exception as e:
         return str(e)
@@ -60,7 +60,7 @@ def run_prava_search(query):
     """Prava CLI Stage: Scouting"""
     try:
         # Running the global 'prava' command installed via render.yaml
-        cmd = f"prava shop search --query \"{query}\" --json"
+        cmd = f"npx --yes prava shop search --query \"{query}\" --json"
         result = subprocess.run(cmd, capture_output=True, text=True, shell=True)
         if result.returncode != 0: 
             print(f"CLI Error: {result.stderr}")
